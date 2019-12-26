@@ -1,0 +1,63 @@
+package blockchain;
+
+
+import java.util.ArrayList;
+import com.google.gson.GsonBuilder;
+
+public class BlockchainMain {
+	
+	public static ArrayList<Block> blockChain = new ArrayList<Block>();
+	
+	
+	
+
+	public static void main(String[] args) {
+//https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
+		
+		blockChain.add(new Block("This is my genesis block", "0"));
+		blockChain.add(new Block("This is my 2nd block", blockChain.get(blockChain.size()-1).getHash()));
+		blockChain.add(new Block("This is my 3rd block", blockChain.get(blockChain.size()-1).getHash()));
+		
+		
+		String BlockChainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockChain);
+		System.out.println(BlockChainJson);
+		
+		
+		Boolean checker = isChainValid();
+		System.out.println("This chain is valid");
+	}
+	
+	
+	/**
+	 * 
+	 * @return Checks validity of the blockchain
+	 */
+	public static Boolean isChainValid()
+	{
+		
+		Block currentBlock;
+		Block previousBlock;
+		
+		for(int i = 1; i < blockChain.size(); i++)
+		{
+			currentBlock = blockChain.get(i);
+			previousBlock = blockChain.get(i-1);
+			
+			// Verifying the actual hash of the current block is the same as the one calculated after applying reapplying Sha
+			if(!currentBlock.getHash().equals(currentBlock.calculateHash()))
+			{
+				System.out.println("Hashs of the current block do not match");
+				return false;
+			}
+			
+			// Verifying that the previousHash property in the current block is the same hash value property calculated by the previousBlock
+			if(!currentBlock.getPreviousHash().equals(previousBlock.getHash()))
+			{
+				System.out.println("Hashs of the previous do not match");
+				return false;
+			}
+		}
+		return true;
+	}
+
+}

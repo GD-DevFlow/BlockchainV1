@@ -1,0 +1,19 @@
+package blockchain;
+
+public class BlockchainMain {
+
+	public static void main(String[] args) {
+//https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
+		
+		Block genesisBlock = new Block("This is my genesis block", "0");
+		System.out.println("Hash for block 1: " + genesisBlock.getHash());
+		
+		Block secondBlock = new Block("This is my 2nd block,", genesisBlock.getHash());
+		System.out.println("Hash of the block 2: " + secondBlock.getHash());
+		
+		Block thirdBlock = new Block("This is my 3rd block" , secondBlock.getHash());
+		System.out.println("Hash of Block 3: " + thirdBlock.getHash());
+
+	}
+
+}

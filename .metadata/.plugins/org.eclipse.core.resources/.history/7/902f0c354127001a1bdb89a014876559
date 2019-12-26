@@ -1,0 +1,26 @@
+package blockchain;
+
+
+import java.util.ArrayList;
+import com.google.gson.GsonBuilder;
+
+public class BlockchainMain {
+	
+	public static ArrayList<Block> blockChain = new ArrayList<Block>();
+	
+	
+	
+
+	public static void main(String[] args) {
+//https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
+		
+		blockChain.add(new Block("This is my genesis block", "0"));
+		blockChain.add(new Block("This is my 2nd block,", blockChain.get(blockChain.size()-1).getHash()));
+		blockChain.add(new Block("This is my 3rd block,", blockChain.get(blockChain.size()-1).getHash()));
+		
+		
+		String BlockChainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockChain);
+		System.out.println(BlockChainJson);
+	}
+
+}
