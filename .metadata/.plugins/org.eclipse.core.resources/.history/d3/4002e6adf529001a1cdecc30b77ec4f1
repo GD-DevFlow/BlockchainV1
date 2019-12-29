@@ -1,0 +1,10 @@
+package blockchain;
+import java.security.PublicKey;
+
+public class TransactionOutput {
+	
+	public String id;
+	public PublicKey receiver; // Owner of new coins
+	public PublicKey sender; // 
+
+}
